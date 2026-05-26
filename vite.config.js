@@ -3,6 +3,5 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  base: '/Livreando/', // 🌟 Corrigido: Apenas o nome do repositório entre barras
+  plugins: [react()],// 🌟 Corrigido: Apenas o nome do repositório entre barras
 })
