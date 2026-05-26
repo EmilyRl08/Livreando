@@ -24,7 +24,6 @@ html {
 }
 
 body {
-  /* 🌟 Fonte Strichpunkt Sans configurada como principal do projeto */
   font-family: 'Strichpunkt Sans', Arial, sans-serif;
   overflow-x: hidden;
 }
@@ -52,7 +51,7 @@ body {
 }
 
 /* ==========================================================================
-   NOVA ANIMAÇÃO DE FUNDO: LIVROS FLUTUANTES (APENAS NA TELA DO APP LOGADO)
+   ANIMAÇÃO DE FUNDO: LIVROS FLUTUANTES
    ========================================================================== */
 .app::before {
   content: "";
@@ -61,19 +60,17 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* Fica no fundo */
-  background-size: 280px 280px; /* Tamanho do padrão de repetição */
-  opacity: 0.06; /* Extremamente sutil para não interferir na leitura dos cards */
+  z-index: 0;
+  background-size: 280px 280px;
+  opacity: 0.06;
   pointer-events: none;
 }
 
-/* Livros roxos/claros para o Modo Escuro */
 .dark.app::before {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="%239391ff" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>');
   animation: flutuarLivros 80s linear infinite;
 }
 
-/* Livros azuis/escuros para o Modo Claro */
 .light.app::before {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="%235862f1" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>');
   animation: flutuarLivros 80s linear infinite;
@@ -84,21 +81,18 @@ body {
     background-position: 0 0;
   }
   to {
-    background-position: 560px -560px; /* Movimento suave na diagonal (subindo) */
+    background-position: 560px -560px;
   }
 }
 
-/* Garante que o conteúdo do app fique acima do fundo animado */
-header, .formulario, .biblioteca, .hero, div[style*="text-align: left"] {
+header, .formulario, .biblioteca, .hero {
   position: relative;
   z-index: 1;
 }
 
 /* ==========================================================================
-   ESTILOS ANTIGOS PRESERVADOS / AJUSTADOS
+   HEADER / NAV
    ========================================================================== */
-
-/* HEADER / NAV */
 header {
   position: sticky;
   top: 0;
@@ -122,7 +116,7 @@ header {
   background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: 800; /* Mais peso na nova fonte */
+  font-weight: 800;
 }
 
 nav {
@@ -137,11 +131,11 @@ nav button {
   font-size: 15px;
   cursor: pointer;
   transition: 0.3s;
-  font-family: inherit; /* Garante o uso da fonte importada nos botões */
+  font-family: inherit;
 }
 
 nav button:hover {
-  color: var(--accent);
+  color: var(--primary);
 }
 
 .mode {
@@ -160,9 +154,11 @@ nav button:hover {
   transform: scale(1.05);
 }
 
-/* HERO SECTION */
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
 .hero {
-  min-height: 85vh;
+  min-height: 75vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -175,9 +171,10 @@ nav button:hover {
 }
 
 .tag {
+  display: inline-block;
   padding: 10px 20px;
   border-radius: 999px;
-  background: rgba(50, 51, 104, 0.2);
+  background: rgba(88, 98, 241, 0.15);
   color: var(--primary);
   font-size: 14px;
   font-weight: bold;
@@ -206,7 +203,9 @@ nav button:hover {
   opacity: 0.8;
 }
 
-/* FORMULÁRIO */
+/* ==========================================================================
+   FORMULÁRIO DE CADASTRO
+   ========================================================================== */
 .formulario {
   width: 92%;
   max-width: 900px;
@@ -216,6 +215,11 @@ nav button:hover {
   padding: 35px;
   border-radius: 30px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.light .formulario {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
 }
 
 .formulario h2 {
@@ -233,20 +237,34 @@ input,
 textarea,
 select {
   padding: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.04);
   color: var(--text);
   outline: none;
   font-size: 15px;
-  font-family: inherit; /* Garante o uso da fonte importada nos inputs */
+  font-family: inherit;
+  transition: 0.3s;
+}
+
+/* Força os textos das opções do select a ficarem visíveis em qualquer tema */
+select option {
+  background-color: var(--card);
+  color: var(--text);
 }
 
 .light input,
 .light textarea,
 .light select {
   background: rgba(0, 0, 0, 0.02);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: var(--text-dark);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--primary);
 }
 
 textarea {
@@ -272,7 +290,9 @@ form button:hover {
   box-shadow: 0 5px 15px rgba(88, 98, 241, 0.4);
 }
 
-/* BIBLIOTECA / FILTROS */
+/* ==========================================================================
+   BIBLIOTECA / FILTROS VISUAIS
+   ========================================================================== */
 .biblioteca {
   width: 92%;
   margin: 80px auto;
@@ -308,12 +328,38 @@ form button:hover {
   font-family: inherit;
 }
 
+.light .filtros button {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  color: var(--text-dark);
+}
+
 .filtros button:hover {
   background: var(--secondary);
   color: white;
+  border-color: transparent;
 }
 
-/* GRID DE LIVROS E CARD (Tamanho médio com exibição completa da capa) */
+/* Estado ativo do filtro selecionado */
+.filtros button.filtro-ativo {
+  background: var(--primary) !important;
+  color: #111827 !important;
+  font-weight: bold;
+  border-color: transparent;
+}
+
+.dark .filtros button.filtro-ativo {
+  color: #111827 !important;
+}
+
+.light .filtros button.filtro-ativo {
+  background: var(--secondary) !important;
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   GRID DE LIVROS E CARD ESTILIZADO
+   ========================================================================== */
 .livros {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -330,11 +376,13 @@ form button:hover {
   display: flex;
   flex-direction: column;
   max-width: 280px;
+  width: 100%;
   margin: 0 auto;
 }
 
 .light .card {
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
 }
 
 .card:hover {
@@ -342,11 +390,14 @@ form button:hover {
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Tratamento da imagem da capa */
+.light .card:hover {
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+}
+
 .card img {
   width: 100%;
   height: 320px;
-  object-fit: contain; /* Mantém a proporção e mostra a imagem inteira */
+  object-fit: contain;
   background: rgba(0, 0, 0, 0.2); 
   padding: 12px; 
 }
@@ -366,6 +417,7 @@ form button:hover {
   margin-bottom: 8px;
   font-size: 1.2rem;
   font-weight: 700;
+  color: var(--text);
 }
 
 .card p {
@@ -373,36 +425,42 @@ form button:hover {
   line-height: 1.5;
   font-size: 14px;
   flex-grow: 1;
+  color: var(--text);
 }
 
-/* BADGES DE STATUS */
+/* ==========================================================================
+   BADGES DE STATUS COM ALTO CONTRASTE (CORRIGIDAS)
+   ========================================================================== */
 .status {
   display: inline-block;
   margin-top: 15px;
   padding: 6px 14px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: bold;
   width: fit-content;
-  text-transform: capitalize;
+  text-transform: uppercase;
+  text-align: center;
 }
 
-.favorito {
-  background: #4f46e5;
-  color: white;
+.status.favorito {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
 }
 
-.lendo {
-  background: #0891b2;
-  color: white;
+.status.lendo {
+  background-color: #06b6d4 !important;
+  color: #ffffff !important;
 }
 
-.abandonado {
-  background: #dc2626;
-  color: white;
+.status.abandonado {
+  background-color: #f59e0b !important;
+  color: #ffffff !important;
 }
 
-/* TELA DE LOGIN */
+/* ==========================================================================
+   TELA DE LOGIN
+   ========================================================================== */
 .login {
   display: flex;
   justify-content: center;
@@ -443,6 +501,11 @@ form button:hover {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
 }
 
+.light .login-box {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+}
+
 .login-box h1 {
   text-align: center;
   margin-bottom: 10px;
@@ -477,23 +540,6 @@ form button:hover {
   box-shadow: 0 5px 15px rgba(88, 98, 241, 0.4);
 }
 
-/* RESPONSIVIDADE */
-@media (max-width: 768px) {
-  .hero h2 {
-    font-size: 3rem;
-  }
-
-  header {
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-  }
-
-  .topo-biblioteca {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
 /* ==========================================================================
    FOOTER STYLE
    ========================================================================== */
@@ -505,7 +551,7 @@ form button:hover {
   background: rgba(15, 23, 42, 0.2);
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   position: relative;
-  z-index: 1; /* Fica acima dos livros flutuantes */
+  z-index: 1;
 }
 
 .light .footer {
@@ -546,6 +592,7 @@ form button:hover {
 .light .github-link {
   background: rgba(0, 0, 0, 0.02);
   border: 1px solid rgba(0, 0, 0, 0.05);
+  color: var(--text-dark);
 }
 
 .github-link:hover {
@@ -556,8 +603,25 @@ form button:hover {
   box-shadow: 0 5px 15px rgba(88, 98, 241, 0.3);
 }
 
-/* Ajuste de responsividade para telas menores */
+/* ==========================================================================
+   RESPONSIVIDADE ACESSÍVEL
+   ========================================================================== */
 @media (max-width: 768px) {
+  .hero h2 {
+    font-size: 3rem;
+  }
+
+  header {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .topo-biblioteca {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .footer-content {
     flex-direction: column;
     text-align: center;

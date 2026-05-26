@@ -1,22 +1,19 @@
+import React from 'react'
+
 function LivroCard({ id, titulo, avaliacao, status, imagem, deletarLivro, editarLivro }) {
 
-  // FUNÇÃO QUE ATIVA A EDIÇÃO VIA PROMPT
   function lidarComEdicao() {
     const novoTitulo = prompt("Digite o novo título do livro:", titulo)
-    
-    // Se o usuário cancelar ou deixar o título vazio, interrompe a edição
     if (novoTitulo === null || novoTitulo.trim() === '') return
 
     const novaAvaliacao = prompt("Digite a nova avaliação:", avaliacao)
 
-    // SOLICITA O NOVO STATUS VIA PROMPT
     const entradaStatus = prompt(
       "Digite o novo status (favorito, lendo, abandonado):", 
       status
     )
 
-    // Validação para garantir que o usuário digite apenas uma das opções aceitas pelo banco
-    let novoStatus = status // Por padrão, mantém o atual
+    let novoStatus = status 
     if (entradaStatus !== null) {
       const statusLimpo = entradaStatus.trim().toLowerCase()
       if (statusLimpo === 'favorito' || statusLimpo === 'lendo' || statusLimpo === 'abandonado') {
@@ -26,12 +23,11 @@ function LivroCard({ id, titulo, avaliacao, status, imagem, deletarLivro, editar
       }
     }
 
-    // Envia os dados atualizados de volta para a função no App.jsx
     editarLivro(id, {
       titulo: novoTitulo,
       avaliacao: novaAvaliacao !== null ? novaAvaliacao : avaliacao,
-      status: novoStatus, // <-- Agora envia o status atualizado!
-      imagem: imagem  // Mantém a mesma imagem
+      status: novoStatus, 
+      imagem: imagem
     })
   }
 
@@ -53,7 +49,6 @@ function LivroCard({ id, titulo, avaliacao, status, imagem, deletarLivro, editar
           {status}
         </span>
 
-        {/* BOTÕES DE AÇÃO ADAPTADOS PARA O CARD MÉDIO */}
         <div className="card-acoes" style={{ marginTop: '15px', display: 'flex', gap: '8px' }}>
           <button 
             onClick={lidarComEdicao}
